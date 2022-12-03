@@ -1,3 +1,4 @@
 local_env_vars
 id_rsa
 id_rsa.pub
+jenkins_keystore.jks
