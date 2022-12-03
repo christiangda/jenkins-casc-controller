@@ -50,6 +50,12 @@ if [[ ! -f ./run-local.sh ]] && [[ ! -f ./Dockerfile ]]; then
     exit 1
 fi
 
+if [[ ! -f $DOCKER_ENV_VARS ]]; then
+    printf "Please create a file %s and fill it with necessary variables ❌	\n" "${DOCKER_ENV_VARS}"
+    exit 1
+fi
+
+
 #######################################################################################################################
 # This section is about preparing the Dockerfile and jcasc configuiration
 # before building the new docker image
