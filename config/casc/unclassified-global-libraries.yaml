@@ -1,0 +1,22 @@
+---
+unclassified:
+  globalLibraries:
+    libraries:
+      - defaultVersion: "main"
+        implicit: true
+        name: "shared-library-global"
+        retriever:
+          modernSCM:
+            scm: # https://www.jenkins.io/doc/pipeline/steps/workflow-cps-global-lib/
+              git:
+                credentialsId: github-ssh-private-key
+                remote: "git@github.com:christiangda/jenkins-shared-library.git" # this will need ssh key
+                traits:
+                  - "gitBranchDiscovery"
+                  - "gitTagDiscovery"
+                  - "pruneStaleBranchTrait"
+                  - cloneOptionTrait:
+                      extension:
+                        noTags: false
+                        shallow: true
+                        timeout: 5 # minutes

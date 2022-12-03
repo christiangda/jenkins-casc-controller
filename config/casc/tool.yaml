@@ -1,0 +1,9 @@
+---
+tool:
+  git:
+    installations:
+      - name: Default
+        home: /usr/bin/git
+  mavenGlobalConfig:
+      globalSettingsProvider: "standard"
+      settingsProvider: "standard"

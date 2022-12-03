@@ -1,0 +1,31 @@
+---
+unclassified:
+  location:
+    adminAddress: "jenkins@slashdevops.com"
+    url: "${JCASC_CONTROLLER_URL_PROTOCOL}://${JCASC_CONTROLLER_NAME}"
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        bitbucketJenkinsRootUrl: "${JCASC_CONTROLLER_URL_PROTOCOL}://${JCASC_CONTROLLER_NAME}"
+        enableCache: true
+        repositoriesCacheDuration: 20
+        teamCacheDuration: 60
+        manageHooks: true
+        credentialsId: "bitbucket-oauth-credentials"
+  themeManager:
+    disableUserThemes: false
+    theme: "darkSystem" # use 'dark' for forcing the dark theme regardless of OS settings
+  timestamper:
+    allPipelines: true
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'yyyy-MM-dd'T'HH:mm:ss.SSSXXX'</b> '"
+  gitSCM:
+    addGitTagAction: false
+    allowSecondFetch: true
+    createAccountBasedOnEmail: true
+    disableGitToolChooser: false
+    globalConfigEmail: "jenkins@slashdevops.com"
+    globalConfigName: "jenkins"
+    hideCredentials: true
+    showEntireCommitSummaryInChanges: true
+    useExistingAccountWithSameEmail: true

@@ -1,0 +1,13 @@
+---
+jenkins:
+  systemMessage: "Welcome to Jenkins Configuration as a Code (JCASC) CI/CD Tool"
+  primaryView:
+    all:
+      description: "Organization Projects"
+      name: "all"
+  numExecutors: 0
+  slaveAgentPort: ${JCASC_CONTROLLER_JNLP_PORT}
+  agentProtocols:
+    - "JNLP4-connect"
+    - "Ping"
+  crumbIssuer: "standard"

@@ -1,0 +1,21 @@
+---
+jenkins:
+  securityRealm:
+    saml:
+      binding: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+      displayNameAttributeName: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+      emailAttributeName: "Email"
+      usernameAttributeName: "Email"
+      groupsAttributeName: "Group"
+      advancedConfiguration:
+        forceAuthn: true
+      idpMetadataConfiguration:
+        period: 0
+        xml: |-
+          ${JCASC_SAML_XML}
+      maximumAuthenticationLifetime: 2678400
+      usernameCaseConversion: "none"
+      samlCustomAttributes:
+        - attribute:
+            displayName: "Group"
+            name: "Group"
