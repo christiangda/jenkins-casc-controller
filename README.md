@@ -14,7 +14,7 @@ Jenkins Configuration as a Code (CasC) controller container image. I used this t
 
 ## Jenkins CasC features
 
-* [x] Jenkins SAML V2 Security realm using [AWS IAM Identity Center (successor to AWS Single Sign-On)](https://docs.aws.amazon.com/singlesignon/index.html) [SAML - plugin](https://plugins.jenkins.io/saml/)
+* [x] Jenkins SAML V2 Security realm using [Google Workspace SAML](https://support.google.com/a/answer/12032922?product_name=UnuFlow&hl=en&visit_id=638056917241119327-4119517229&rd=1&src=supportwidget0&hl=en) [SAML - plugin](https://plugins.jenkins.io/saml/)
 * [x] Jenkins GitHub [Multibranch Pipeline](https://www.jenkins.io/doc/book/pipeline/multibranch/) [GitHub Branch Source - plugin](https://plugins.jenkins.io/github-branch-source/)
 
 ## How to use this image
