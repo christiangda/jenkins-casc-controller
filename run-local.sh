@@ -7,7 +7,7 @@ set -e
 # green cross mark = ❎
 # yellow warning sign = ⚠️
 # green check mark = ✅
-# yellow ligthining = \xe2\x9a\xa0 o ⚡
+# yellow ligthining = ⚡
 # finger pointing up = ☝
 # exclamation mark = ❗
 # hand open = ✋
@@ -90,7 +90,7 @@ printf "\n\n"
 
 printf "Building container image \n"
 docker build --tag $CONTAINER_IMAGE_NAME -f ./Dockerfile .
-printf "  $CONTAINER_IMAGE_NAME ✅\n"
+printf "  %s ✅\n" "$CONTAINER_IMAGE_NAME"
 
 #######################################################################################################################
 # create a new certificate for jenkins, needed to run jenkins using https protocol requested by Google SAML Application
@@ -138,7 +138,7 @@ fi
 #######################################################################################################################
 # Run the new jenkins docker image
 printf "Running fresh container image ✅ \n"
-printf "NOTE: Use the command 'docker exec -ti ${RUNING_IMAGE_NAME} bash' to have connection to the runing container 💡 \n"
+printf "NOTE: Use the command 'docker exec -ti %s bash' to have connection to the runing container 💡 \n" "${RUNING_IMAGE_NAME}"
 sleep 3
 
 docker run --rm \

@@ -1,0 +1,69 @@
+---
+jobs:
+  - script: |
+      organizationFolder('golang/tools/cli') {
+        description('Repositories inside CLI')
+        displayName('Golang - CLI Tools')
+        organizations {
+          github {
+            repoOwner('christiangda')
+            credentialsId('github-oauth-credentials')
+            traits {
+              submoduleOptionTrait {
+                extension {
+                  disableSubmodules(false)
+                  recursiveSubmodules(true)
+                  trackingSubmodules(false)
+                  reference(null)
+                  timeout(null)
+                  parentCredentials(true)
+                }
+              }
+              gitHubTagDiscovery()
+              gitHubBranchDiscovery {
+                // Determines which branches are discovered.
+                strategyId(3)
+              }
+              gitHubSshCheckout {
+               // Credentials used to check out sources.
+                credentialsId('github-ssh-private-key')
+              }
+              gitHubPullRequestDiscovery {
+                // Determines how pull requests are discovered.
+                strategyId(1)
+              }
+              // Branches whose last commit's message contains (case insensitive) the pattern "[ci skip]" or "[skip ci]" will be ignored.
+              gitHubBranchCommitSkipTrait()
+            }
+          }
+        }
+        properties {
+          // don't trigger builds automatically on multi-branch projects indexing
+          suppressFolderAutomaticTriggering {
+              // Defines a regular expression of branch names which will be triggered automatically, for example (?!
+              branches("master|main|release.*|feature.*|bugfix.*|PR-\\d.+")
+              // Determines events for which branches with matched names should not be triggered automatically.
+              // Possible values for value:
+              //     'INDEXING'
+              //     'EVENTS'
+              //     'NONE'
+              strategy('INDEXING')
+          }
+        }
+        projectFactories {
+          workflowMultiBranchProjectFactory {
+            scriptPath 'Jenkinsfile'
+          }
+        }
+        orphanedItemStrategy {
+          discardOldItems {
+            daysToKeep(3)
+            numToKeep(3)
+          }
+        }
+        triggers {
+          periodicFolderTrigger {
+            interval('1d')
+          }
+        }
+      }

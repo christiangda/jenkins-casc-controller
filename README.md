@@ -33,7 +33,7 @@ Please create a file `local_env_vars` with the following variables:
 ## How to use this image
 
 ```bash
-./run-local.sh
+./run-local.sh -x <here path to your SAML XML file>/GoogleIDPMetadata.xml -s <here path to your ssh key>/id_rsa
 ```
 
 ## Jobs DSL Information in local

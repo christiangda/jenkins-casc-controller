@@ -16,11 +16,13 @@ email-ext:2.92
 envinject:2.881.v37c62073ff97
 external-monitor-job:203.v683c09d993b_9
 favorite:2.4.1
-github-branch-source:1696.v3a_7603564d04
 generic-webhook-trigger:1.85.2
 git-client:3.13.0
 git-parameter:0.9.18
 git:4.14.1
+github:1.36.0
+github-branch-source:1696.v3a_7603564d04
+github-scm-trait-commit-skip:0.4.0
 javax-mail-api:1.6.2-8
 jdk-tool:63.v62d2fd4b_4793
 job-dsl:1.81

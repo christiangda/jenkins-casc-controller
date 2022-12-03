@@ -1,0 +1,11 @@
+---
+jobs:
+  - script: |
+      folder('golang') {
+        displayName('Golang Projects')
+        description('Pipelines for Golang Projects in GitHub')
+      }
+      folder('golang/tools') {
+        displayName('Tools')
+        description('List of Tools Jobs and Pipeline')
+      }
