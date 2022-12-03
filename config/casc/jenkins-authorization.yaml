@@ -1,0 +1,22 @@
+---
+jenkins:
+  projectNamingStrategy:
+    roleBased:
+      forceExistingJobs: true
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - assignments:
+              - "Jenkins Administrators"
+            name: "Administrators"
+            pattern: ".*"
+            permissions:
+              - "Overall/Read"
+              - "Overall/Administer"
+          - assignments:
+              - "Jenkins Readers"
+            name: "Readers"
+            pattern: ".*"
+            permissions:
+              - "Overall/Read"
