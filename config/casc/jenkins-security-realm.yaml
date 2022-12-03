@@ -12,7 +12,7 @@ jenkins:
       idpMetadataConfiguration:
         period: 0
         xml: |-
-          ${JCASC_SAML_XML}
+          ${file:${JENKINS_REF}/saml-xml-metadata.xml}
       maximumAuthenticationLifetime: 2678400
       usernameCaseConversion: "none"
       samlCustomAttributes:

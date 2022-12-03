@@ -12,16 +12,16 @@ set -e
 # exclamation mark = ❗
 # hand open = ✋
 # tips = 💡
-SCRIPT_TOOLS="aws docker jq keytool grep awk patch"
 
+SCRIPT_TOOLS="aws docker jq keytool grep awk patch"
 CONTAINER_IMAGE_NAME="jenkins/jcasc-jdk17-local"
 RUNING_IMAGE_NAME="jcasc-jdk17-local"
 
 JENKINS_HOME="/var/jenkins_home/keystore"
 JENKINS_KEYSTORE="${JENKINS_HOME}/keystore"
-
 JENKINS_ETC_HOSTS_FILE="/etc/hosts"
 JENKINS_ETC_HOSTS_IP="127.0.0.1"
+JENKINS_REF="/usr/share/jenkins/ref"
 
 JCASC_CONTROLLER_URL_PROTOCOL="https"
 JCASC_CONTROLLER_INTERNAL_URL_PROTOCOL="https"
@@ -33,6 +33,33 @@ JCASC_CONTROLLER_JNLP_PORT=50000
 
 DOCKER_ENV_VARS="local_env_vars"
 HEALTHCHECK_ENDPOINT="https://localhost:443/login"
+
+#######################################################################################################################
+# Arguments of the script
+function print_usage() {
+  printf "Usage: %s -x <path to SAML XML Metadata file> -s <path to private ssh key>\n" "$0"
+}
+
+while getopts ':x:s:' flag; do
+  case "${flag}" in
+    x)
+      printf "Using SAML XML file %s \n" "${OPTARG}"
+      export SAML_METADATA_FILE="${OPTARG}"
+      ;;
+    s)
+      printf "Using SSH Private key file %s \n" "${OPTARG}"
+      export SSH_PRIVATE_KEY_FILE="${OPTARG}"
+      ;;
+    *)
+      print_usage
+      exit 0
+      ;;
+  esac
+done
+if (( $OPTIND == 1 )); then
+   print_usage
+   exit 0
+fi
 
 #######################################################################################################################
 # Check if you have necessary tools installed
@@ -119,7 +146,6 @@ docker run --rm \
     --env-file=${DOCKER_ENV_VARS} \
     -p "${JCASC_CONTROLLER_JNLP_PORT}:${JCASC_CONTROLLER_JNLP_PORT}" \
     -p "${JCASC_CONTROLLER_PORT}:${JCASC_CONTROLLER_PORT}" \
-    -e "JCASC_SAML_XML=${JCASC_SAML_XML}" \
     -e "JCASC_CONTROLLER_INTERNAL_URL_PROTOCOL=${JCASC_CONTROLLER_INTERNAL_URL_PROTOCOL}" \
     -e "JCASC_CONTROLLER_URL_PROTOCOL=${JCASC_CONTROLLER_URL_PROTOCOL}" \
     -e "JCASC_CONTROLLER_INTERNAL_NAME=${JCASC_CONTROLLER_INTERNAL_NAME}" \
@@ -129,6 +155,8 @@ docker run --rm \
     -e "JCASC_CONTROLLER_JNLP_PORT=${JCASC_CONTROLLER_JNLP_PORT}" \
     -e "HEALTHCHECK_ENDPOINT=${HEALTHCHECK_ENDPOINT}" \
     -v "${PWD}/jenkins_keystore.jks:${JENKINS_KEYSTORE}/jenkins_keystore.jks" \
+    -v "${SAML_METADATA_FILE}:${JENKINS_REF}/saml-xml-metadata.xml" \
+    -v "${SSH_PRIVATE_KEY_FILE}:${JENKINS_REF}/id_rsa" \
     -v /var/run/docker.sock:/var/run/docker.sock \
     $CONTAINER_IMAGE_NAME \
       --httpPort=-1 \

@@ -22,16 +22,20 @@ CASC_ENV_VARS=$(grep -E -o '\${.+}' -R $CASC_JENKINS_CONFIG | awk -F: '{ print $
 
 CASC_ENV_VARS_STATE="to validate"
 for VAR_NAME in $CASC_ENV_VARS; do
+  if [[ "$VAR_NAME" =~ ^(file|base64|readFile|decodeBase64|readFileBase64|json)$ ]]; then
+    break
+  fi
+
   # "${!VAR_NAME}" here the symbol "!" get the real variable and not the name
   # https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
   if [[ "${!VAR_NAME-notset}" == "notset" ]]; then # also I tried with [[ -v "${!VAR_NAME}" ]] and never work in macos
-    printf "  $VAR_NAME ❗, this is not set, please set it\n"
+    printf "  %s ❗, this is not set, please set it\n" "$VAR_NAME"
     CASC_ENV_VARS_STATE="fail"
   elif [[ -z "${!VAR_NAME}" ]]; then
-    printf "  $VAR_NAME	✋, this is empty, please fill it!\n"
+    printf "  %s	✋, this is empty, please fill it!\n" "$VAR_NAME"
     CASC_ENV_VARS_STATE="fail"
   else
-    printf "  $VAR_NAME ✅\n"
+    printf "  %s ✅\n" "$VAR_NAME"
   fi
 done
 
@@ -39,8 +43,8 @@ done
 
 printf "\n\n"
 printf "Jenkins URLs... ✋\n"
-printf "  External: "${JCASC_CONTROLLER_URL_PROTOCOL}://${JCASC_CONTROLLER_NAME}:${JCASC_CONTROLLER_PORT}" 👈\n"
-printf "  Internal: "${JCASC_CONTROLLER_INTERNAL_URL_PROTOCOL}://${JCASC_CONTROLLER_INTERNAL_NAME}:${JCASC_CONTROLLER_INTERNAL_PORT}" 👈\n"
+printf "  External: %s 👈\n" "${JCASC_CONTROLLER_URL_PROTOCOL}://${JCASC_CONTROLLER_NAME}:${JCASC_CONTROLLER_PORT}"
+printf "  Internal: %s 👈\n" "${JCASC_CONTROLLER_INTERNAL_URL_PROTOCOL}://${JCASC_CONTROLLER_INTERNAL_NAME}:${JCASC_CONTROLLER_INTERNAL_PORT}"
 
 sleep 2
 printf "\n\n"

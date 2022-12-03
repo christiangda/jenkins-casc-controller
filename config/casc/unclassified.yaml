@@ -3,15 +3,6 @@ unclassified:
   location:
     adminAddress: "jenkins@slashdevops.com"
     url: "${JCASC_CONTROLLER_URL_PROTOCOL}://${JCASC_CONTROLLER_NAME}"
-  bitbucketEndpointConfiguration:
-    endpoints:
-    - bitbucketCloudEndpoint:
-        bitbucketJenkinsRootUrl: "${JCASC_CONTROLLER_URL_PROTOCOL}://${JCASC_CONTROLLER_NAME}"
-        enableCache: true
-        repositoriesCacheDuration: 20
-        teamCacheDuration: 60
-        manageHooks: true
-        credentialsId: "bitbucket-oauth-credentials"
   themeManager:
     disableUserThemes: false
     theme: "darkSystem" # use 'dark' for forcing the dark theme regardless of OS settings
